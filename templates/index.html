@@ -65,8 +65,8 @@
 
                  //Draw start and goal 
                 circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 10, 10);
-                circle.x = 25;
-                circle.y = 25;
+                circle.x = getRandomInt(0,9)*50 + 25;
+                circle.y = getRandomInt(0,9)*50 + 25;
                 stage.addChild(circle);
                 stage.update();
 
@@ -97,10 +97,12 @@
             function moveRight() {
 
             }
-            
 
+            //Ultility method
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            } 
 
         </script>
-        
     </body>
 </html>
