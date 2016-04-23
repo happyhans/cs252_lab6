@@ -3,16 +3,29 @@
     <head>
         <title>CS252</title>
     </head>
-    <body>
+    <body onload="init();">
         
-        <canvas>
-            
-        </canvas>
+        <canvas id="demoCanvas" width="500" height="500"></canvas>
         
+        <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
         <script>
             var socket = io.connect('http://' + document.domain + ':' + location.port);
         </script>
+        
+        <script>
+            var stage;
+            var map;
+            
+            function init(){
+                stage = new createjs.Stage("demoCanvas");
+                map = new createjs.Shape();
+                map.graphics.beginFill("DeepSkyBlue").drawRect(0,0,500,500);
+                stage.addChild(map);
+                stage.update();
+            }
+        </script>
+        
     </body>
 </html>
