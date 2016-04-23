@@ -34,12 +34,15 @@
             var  stage = new createjs.Stage("demoCanvas");
             var map = new createjs.Shape();
             var circle = new createjs.Shape();
-            //TEXT EDITOR VARIABLES GO HERE
+            var circle_goal = new createjs.Shape();
 
             //Graph variables
             var d_map;
             var circle_2d_position;
             var goal_2d_position;
+
+            //Game settings variables
+
 
             function main(){
                 drawInitialMap();
@@ -61,7 +64,16 @@
             }
             //Graph methods
             function drawInitialMap(){
+                //Initalize map array
 
+                d_map = Array(10);
+                for (var i = 0; i < 10; i++)
+                    d_map[i] = new Array(10);
+
+
+                for (var i = 0; i < 10; i++)
+                    for (var j = 0; j < 10; j++)
+                        d_map[i][j] = 0;
                 //Draw background
                 map.graphics.beginFill("LightGreen");
                 map.graphics.setStrokeStyle(1);
@@ -74,23 +86,74 @@
                 stage.addChild(map);
                 stage.update();
                  //Randonmize start and goal positions
+                circle_2d_position = {
+                    x:getRandomInt(0,9),
+                    y:getRandomInt(0,9)
+                }
 
+                goal_2d_position = {
+                    x:getRandomInt(0,9),
+                    y:getRandomInt(0,9)
+                }
 
+                d_map[circle_2d_position.x][circle_2d_position.y] = 1;
+                d_map[goal_2d_position.x][goal_2d_position.y] = 2;                
+
+                //Make sure goal and start never have a same position
+                while (circle_2d_position.x == goal_2d_position.x && circle_2d_position.y == goal_2d_position.y) {
+                    goal_2d_position = {
+                        x:getRandomInt(0,9),
+                        y:getRandomInt(0,9)
+                    }
+                }
                  //Draw start and goal 
                 circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 10, 10);
-                circle.x = getRandomInt(0,9)*50 + 25;
-                circle.y = getRandomInt(0,9)*50 + 25;
+                circle.x = circle_2d_position.x*50 + 25;
+                circle.y = circle_2d_position.y*50 + 25;
                 stage.addChild(circle);
                 stage.update();
 
+                circle_goal.graphics.beginFill("Orange").drawCircle(0, 10, 10);
+                circle_goal.x = goal_2d_position.x*50 + 25;
+                circle_goal.y = goal_2d_position.y*50 + 25;
+                stage.addChild(circle_goal);
+                stage.update();
+
                 //Randomize obstacles
+                var count = 0;
+                while (count < 30) {
+                    console.log("here\n");
+                    var x = getRandomInt(0,9);
+                    var y = getRandomInt(0,9);
+                    if (d_map[x][y] == 0) {
+                        var obstacle_type = getRandomInt(0,1);
+                        if (obstacle_type == 0) {
+                            d_map[x][y] = 3;
+                            var o_circle = new createjs.Shape();
+                            o_circle.graphics.beginFill("Black").drawCircle(0, 10, 10);
+                            o_circle.x = x*50 + 25;
+                            o_circle.y = y*50 + 25;
+                            stage.addChild(o_circle);
+                            stage.update();
+                        }
+                        else {
+                            d_map[x][y] = 4;
+                            var o_circle = new createjs.Shape();
+                            o_circle.graphics.beginFill("Red").drawCircle(0, 10, 10);
+                            o_circle.x = x*50 + 25;
+                            o_circle.y = y*50 + 25;
+                            stage.addChild(o_circle);
+                            stage.update();
+                        }
+                        count = count + 1;
+                    }
+                }
 
                 //Draw obstacles
                
                 
                
 
-                //TEXT EDITOR DRAWING CODE GOES HERE
             }
             //Game loop execution methods
             function winCondition() {
