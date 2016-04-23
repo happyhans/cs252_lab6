@@ -2,14 +2,33 @@
 <html>
     <head>
         <title>CS252</title>
+        <style type="text/css">
+            #demoCanvas {
+                float: left;
+            }
+            #editor {
+                height: 500px;
+                width: 500px;
+            }
+        </style>
     </head>
     <body onload="init();">
         
         <canvas id="demoCanvas" width="500" height="500"></canvas>
+        <div id="editor"></div>
+        <button id="run">Run!</button>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+        </script>
         
         <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
+        
         <script>
             var socket = io.connect('http://' + document.domain + ':' + location.port);
         </script>
@@ -17,14 +36,37 @@
         <script>
             var stage;
             var map;
+            var positions = [];
             
             function init(){
                 stage = new createjs.Stage("demoCanvas");
                 map = new createjs.Shape();
-                map.graphics.beginFill("DeepSkyBlue").drawRect(0,0,500,500);
+                map.graphics.beginFill("DeepSkyBlue");
+                map.graphics.setStrokeStyle(1);
+                map.graphics.beginStroke("#000000");
+                map.graphics.drawRect(0,0,600,600);
+
                 stage.addChild(map);
                 stage.update();
+                
+                for(var i = 0; i < 20; i++){
+                    for(var j = 0; j < 20; j++){
+                        var position = new createjs.Shape();
+                        position.graphics.beginFill("yellow");
+                        position.graphics.setStrokeStyle(1);
+                        position.graphics.beginStroke("#000000");
+                        position.graphics.drawRect(i*25,j*25,25,25);
+                        positions.push(position);
+                        stage.addChild(position);
+                        stage.update();                        
+                    }
+                }
+                
             }
+            
+            
+            
+            
         </script>
         
     </body>
