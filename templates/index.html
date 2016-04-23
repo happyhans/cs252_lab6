@@ -3,28 +3,103 @@
     <head>
         <title>CS252</title>
     </head>
-    <body onload="init();">
+    <body onload="main();">
         
         <canvas id="demoCanvas" width="500" height="500"></canvas>
         
         <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
+        <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
         <script>
             var socket = io.connect('http://' + document.domain + ':' + location.port);
         </script>
         
         <script>
-            var stage;
-            var map;
+            //Graph Displaying variables
+            var  stage = new createjs.Stage("demoCanvas");
+            var map = new createjs.Shape();
+            var circle = new createjs.Shape();
+            //TEXT EDITOR VARIABLES GO HERE
+
+            //Graph variables
+            var d_map;
+            var circle_2d_position;
+            var goal_2d_position;
+
             
-            function init(){
-                stage = new createjs.Stage("demoCanvas");
-                map = new createjs.Shape();
-                map.graphics.beginFill("DeepSkyBlue").drawRect(0,0,500,500);
+            function main(){
+                drawInitialMap();
+
+                //Game loop
+                 //Read the text editor and execute user's inputs
+                 //Update positions and the map
+                 //Check win condition
+
+
+                /*createjs.Tween.get(circle, { loop: true })
+                    .to({ x: 400 }, 1000)
+                    .to({ y: 175 }, 500)
+                    .to({ y: 225 }, 100)
+                    .to({ y: 200 }, 500)
+                    .to({ x: 100 }, 800);
+                createjs.Ticker.setFPS(60);
+                createjs.Ticker.addEventListener("tick", stage);*/
+            }
+            //Graph methods
+            function drawInitialMap(){
+
+                //Draw background
+                map.graphics.beginFill("LightGreen");
+                map.graphics.setStrokeStyle(1);
+                map.graphics.beginStroke("#000001");
+                for (var i = 0; i < 10; i++) {
+                    for (var j = 0; j < 10; j++) {
+                        map.graphics.drawRect(i*50,j*50,50,50);        
+                    }
+                }
                 stage.addChild(map);
                 stage.update();
+                 //Randonmize start and goal positions
+
+
+                 //Draw start and goal 
+                circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 10, 10);
+                circle.x = 25;
+                circle.y = 25;
+                stage.addChild(circle);
+                stage.update();
+
+                //Randomize obstacles
+
+                //Draw obstacles
+               
+                
+               
+
+                //TEXT EDITOR DRAWING CODE GOES HERE
             }
+            //Game loop execution methods
+            function winCondition() {
+
+            }
+
+            //In-game play methods
+            function moveUp() {
+
+            }
+            function moveDown() {
+
+            }
+            function moveLeft() {
+
+            }
+            function moveRight() {
+
+            }
+            
+
+
         </script>
         
     </body>
