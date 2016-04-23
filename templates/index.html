@@ -2,19 +2,33 @@
 <html>
     <head>
         <title>CS252</title>
+        <style type="text/css">
+            #demoCanvas {
+                float: left;
+            }
+            #editor {
+                height: 500px;
+                width: 500px;
+            }
+        </style>
     </head>
     <body onload="main();">
         
         <canvas id="demoCanvas" width="500" height="500"></canvas>
+        <div id="editor"></div>
+        <button id="run">Run!</button>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+        </script>
         
         <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
         <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
-        <script>
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-        </script>
-        
         <script>
             //Graph Displaying variables
             var  stage = new createjs.Stage("demoCanvas");
@@ -27,7 +41,6 @@
             var circle_2d_position;
             var goal_2d_position;
 
-            
             function main(){
                 drawInitialMap();
 
@@ -88,6 +101,7 @@
             function moveUp() {
 
             }
+
             function moveDown() {
 
             }
@@ -102,7 +116,6 @@
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             } 
-
         </script>
     </body>
 </html>
