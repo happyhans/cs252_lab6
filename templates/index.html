@@ -77,6 +77,7 @@ moveDown();
             //Graph variables
             var d_map;
             var circle_2d_position;
+            var start_position;
             var goal_2d_position;
 
             //Game settings variables
@@ -84,12 +85,6 @@ moveDown();
 
             function main(){
                 drawInitialMap();
-
-                //Game loop
-                 //Read the text editor and execute user's inputs
-                 //Update positions and the map
-                 //Check win condition
-
 
                 /*createjs.Tween.get(circle, { loop: true })
                     .to({ x: 400 }, 1000)
@@ -128,7 +123,7 @@ moveDown();
                     x:getRandomInt(0,9),
                     y:getRandomInt(0,9)
                 }
-
+                start_position = circle_2d_position;
                 goal_2d_position = {
                     x:getRandomInt(0,9),
                     y:getRandomInt(0,9)
@@ -157,7 +152,7 @@ moveDown();
                 stage.addChild(circle_goal);
                 stage.update();
 
-                //Randomize obstacles
+                //Randomize obstacles and draw them
                 var count = 0;
                 while (count < 30) {
                     console.log("here\n");
@@ -187,7 +182,8 @@ moveDown();
                     }
                 }
 
-                //Draw obstacles
+                stage.addChild(o_circle);
+                            stage.update();
                
                 
                 
@@ -196,11 +192,15 @@ moveDown();
             function runCode(){
                 var code = editor.getValue();
                 eval(code);
+                //Check win condition
+                    //if win, create the new game
+
+                    //else, put the circle back to the start position.
             }
             
             //Game loop execution methods
             function winCondition() {
-
+                return (circle_2d_position.x == goal_2d_position.x && circle_2d_position.y == goal_2d_position.y);
             }
 
             //In-game play methods
@@ -218,6 +218,13 @@ moveDown();
 
             }
 
+            function noSolution() {
+
+            }
+
+            function Win() {
+                
+            }
             //Ultility method
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
