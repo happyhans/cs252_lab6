@@ -83,7 +83,7 @@ moveDown();
             var goal_2d_position;
 
             //Game execution variables
-            var hasSolution;
+            var hasSolution = true;
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener("tick", stage);
 
@@ -200,7 +200,6 @@ moveDown();
                     }
                     console.log('\n');
                 }*/
-                stage.addChild(o_circle);
                 stage.update();
                
                 
@@ -217,6 +216,10 @@ moveDown();
                 displaying_path = displaying_path +';';
                 eval(displaying_path);
                 displaying_path = 'createjs.Tween.get(circle, { loop: false })';
+
+                //Check win condition
+                if (d_map[circle_2d_position.x][circle_2d_position.y] == 2 || !hasSolution )
+                    win();
             }
             
             //Game loop execution methods
@@ -307,7 +310,7 @@ moveDown();
 
             }
             function moveRight() {
-                console.log("moveLeft");
+                console.log("moveRight");
                  if (circle_2d_position.x + 1 < 10) {
                     if (d_map[circle_2d_position.x + 1][circle_2d_position.y ] != 3) {
                         //createjs.Tween.get(circle, { loop: false }).to({ y: (circle_2d_position.y + 1)*50+25 }, 10000);
@@ -423,7 +426,7 @@ moveDown();
             function newGame(){
                 stage.removeAllChildren();
                 stage.clear();
-                
+                drawInitialMap();
                 // add re-draw code here and call this function instead
             }
             
