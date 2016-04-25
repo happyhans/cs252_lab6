@@ -423,6 +423,43 @@ moveDown();
                 stage.update();
             }
             
+            function lose(){
+                console.log(start_position);
+                console.log(goal_2d_position);
+                
+                // stage.removeAllChildren();
+                // stage.clear();
+                var loserText = new createjs.Text("You didn't escape!", "20px Arial", "#FFFFFF");
+                loserText.x = 250;
+                loserText.y = 200;
+                loserText.textAlign = "center";
+
+                var playAgainText = new createjs.Text("Play again?", "30px Arial", "#FFFFFF");
+                playAgainText.x = playAgainText.y = 250;
+                playAgainText.textAlign = "center";
+                
+                var button = new createjs.Shape();
+                button.graphics.beginFill("Red").drawCircle(250, 250, 125).setStrokeStyle(1);
+                
+                button.addEventListener("click", function(event) {  
+                    if(confirm("Play again?")){
+                        stage.removeChildAt(stage.getChildIndex(button));
+                        stage.removeChildAt(stage.getChildIndex(loserText));
+                        stage.removeChildAt(stage.getChildIndex(playAgainText));
+                        
+                        
+                        circle_2d_position.x = start_position.x;
+                        circle_2d_position.y = start_position.y;
+                    }
+                });
+                
+                stage.addChild(button);
+                stage.addChild(loserText);
+                stage.addChild(playAgainText);
+                
+                stage.update();
+            }
+            
             function newGame(){
                 stage.removeAllChildren();
                 stage.clear();
