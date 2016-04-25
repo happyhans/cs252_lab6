@@ -86,6 +86,7 @@ moveDown();
             var hasSolution = true;
             createjs.Ticker.setFPS(60);
             createjs.Ticker.addEventListener("tick", stage);
+            var count = 0;
 
             //Game settings variables
 
@@ -161,7 +162,7 @@ moveDown();
 
                 //Randomize obstacles and draw them
                 var count = 0;
-                while (count < 10) {
+                while (count < 50) {
                     var x = getRandomInt(0,9);
                     var y = getRandomInt(0,9);
                     if (d_map[x][y] == 0) {
@@ -219,7 +220,8 @@ moveDown();
 
                 //Check win condition
                 if (d_map[circle_2d_position.x][circle_2d_position.y] == 2 || !hasSolution )
-                    win();
+                    setTimeout(win, count*100);
+                count = 0;
             }
             
             //Game loop execution methods
@@ -266,6 +268,7 @@ moveDown();
                         var value = circle_2d_position.y *50 +25;
                         displaying_path = displaying_path + '.to({ y:' + value + '}, 100)';
                         console.log(displaying_path);
+                        count++;
 
                     }
 
@@ -285,6 +288,7 @@ moveDown();
                         var value = circle_2d_position.y *50 +25;
                         displaying_path = displaying_path + '.to({ y:' + value + '}, 100)';
                         console.log(displaying_path);
+                        count++;
 
                     }
 
@@ -303,6 +307,7 @@ moveDown();
                         var value = circle_2d_position.x *50 +25;
                         displaying_path = displaying_path + '.to({ x:' + value + '}, 100)';
                         console.log(displaying_path);
+                        count++;
 
                     }
 
@@ -321,6 +326,7 @@ moveDown();
                         var value = circle_2d_position.x *50 +25;
                         displaying_path = displaying_path + '.to({ x:' + value + '}, 100)';
                         console.log(displaying_path);
+                        count++;
 
                     }
 
