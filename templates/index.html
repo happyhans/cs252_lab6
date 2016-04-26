@@ -485,6 +485,10 @@ moveDown();
             
             function keyPressed(event){
                 if(mode == "keyboard"){
+                    if(noSolution()){
+                        newGame();
+                    }
+                    
                     switch(event.keyCode){
                         case 37:
                             moveLeft();
