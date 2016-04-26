@@ -55,6 +55,7 @@ moveDown();
         </code></pre>
         
         <button id="run" onclick="runCode();">RUN</button>
+        <button id="mode" onClick="changeMode();">Change mode (Current mode: "Code")</button>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
         <script>
@@ -68,8 +69,13 @@ moveDown();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"></script>
         <script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>
         <script>
+            
+            // modes
+            var mode = "code";
+            this.document.onkeydown = keyPressed;	
+        
             //Graph Displaying variables
-            var  stage = new createjs.Stage("demoCanvas");
+            var stage = new createjs.Stage("demoCanvas");
             var map = new createjs.Shape();
             var circle = new createjs.Shape();
             var circle_goal = new createjs.Shape();
@@ -256,6 +262,9 @@ moveDown();
                     .to({ x: 100 }, 800);
                 createjs.Ticker.setFPS(60);
                 createjs.Ticker.addEventListener("tick", stage);*/
+                
+                
+                
             function moveUp() {
                 console.log("moveUp");
                 if (circle_2d_position.y - 1 >=0) {
@@ -453,9 +462,10 @@ moveDown();
                         stage.removeChildAt(stage.getChildIndex(loserText));
                         stage.removeChildAt(stage.getChildIndex(playAgainText));
                         
-                        
                         circle_2d_position.x = start_position.x;
                         circle_2d_position.y = start_position.y;
+                        
+                        createjs.Tween.get(circle, {}).to({x: start_position.x, y: start_position.y});
                     }
                 });
                 
@@ -473,13 +483,53 @@ moveDown();
                 // add re-draw code here and call this function instead
             }
             
+            function keyPressed(event){
+                if(mode == "keyboard"){
+                    switch(event.keyCode){
+                        case 37:
+                            moveLeft();
+                            break;
+                        case 39:
+                            moveRight();
+                            break;
+                        case 38:
+                            moveUp();
+                            break;
+                        case 40:
+                            moveDown();
+                            break;
+                    }
+                    
+                    if(event.keyCode >= 37 && event.keyCode <= 40){
+                        displaying_path = displaying_path +';';
+                        eval(displaying_path);
+                        displaying_path = 'createjs.Tween.get(circle, { loop: false })';
+                        stage.update();
+                    }
+                    
+                    if(hasWon()) win();                    
+                }
+            }
             
+            function changeMode(){
+                if(mode == "code"){
+                    mode = "keyboard";   
+                }else{
+                    mode = "code";
+                }
+                document.getElementById("mode").innerHTML = "Change Mode (Current mode: " + mode + ")";
+            }
+            
+            function hasWon(){
+                return winCondition();
+            }
             
             //Ultility method
 
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             } 
+            
         </script>
     </body>
 </html>
