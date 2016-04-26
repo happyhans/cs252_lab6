@@ -262,7 +262,7 @@ moveDown();
                     if (d_map[circle_2d_position.x][circle_2d_position.y - 1] != 3) {
                         //createjs.Tween.get(circle, { loop: false }).to({ y: (circle_2d_position.y - 1)*50+25 }, 10000);
                         var rgn = 0;
-                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4) rgn = 2;
+                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4 && d_map[circle_2d_position.x][circle_2d_position.y + 1] != 3) rgn = 2;
                         circle_2d_position.y= circle_2d_position.y - 1 + rgn;
                         if (circle_2d_position.y > 9) circle_2d_position.y = 9;
                         var value = circle_2d_position.y *50 +25;
@@ -282,7 +282,7 @@ moveDown();
                     if (d_map[circle_2d_position.x][circle_2d_position.y + 1] != 3) {
                         //createjs.Tween.get(circle, { loop: false }).to({ y: (circle_2d_position.y + 1)*50+25 }, 10000);
                         var rgn = 0;
-                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4) rgn = -2;
+                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4 && d_map[circle_2d_position.x][circle_2d_position.y - 1] != 3) rgn = -2;
                         circle_2d_position.y = circle_2d_position.y + 1 + rgn;
                         if (circle_2d_position.y < 0) circle_2d_position.y = 0;
                         var value = circle_2d_position.y *50 +25;
@@ -301,7 +301,7 @@ moveDown();
                     if (d_map[circle_2d_position.x - 1][circle_2d_position.y ] != 3) {
                         //createjs.Tween.get(circle, { loop: false }).to({ y: (circle_2d_position.y + 1)*50+25 }, 10000);
                         var rgn = 0;
-                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4) rgn = 2;
+                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4 && d_map[circle_2d_position.x + 1][circle_2d_position.y] != 3) rgn = 2;
                         circle_2d_position.x = circle_2d_position.x - 1 + rgn;
                         if (circle_2d_position.x > 9) circle_2d_position.x = 9;
                         var value = circle_2d_position.x *50 +25;
@@ -320,7 +320,7 @@ moveDown();
                     if (d_map[circle_2d_position.x + 1][circle_2d_position.y ] != 3) {
                         //createjs.Tween.get(circle, { loop: false }).to({ y: (circle_2d_position.y + 1)*50+25 }, 10000);
                         var rgn = 0;
-                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4) rgn = -2;
+                        if (d_map[circle_2d_position.x][circle_2d_position.y] == 4 && d_map[circle_2d_position.x-1][circle_2d_position.y] != 3) rgn = -2;
                         circle_2d_position.x = circle_2d_position.x + 1 + rgn;
                         if (circle_2d_position.x < 0) circle_2d_position.x = 0;
                         var value = circle_2d_position.x *50 +25;
